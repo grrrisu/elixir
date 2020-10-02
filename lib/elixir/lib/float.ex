@@ -65,6 +65,8 @@ defmodule Float do
       {34.0, ""}
       iex> Float.parse("34.25")
       {34.25, ""}
+      iex> Float.parse(".25")
+      {0.25, ""}
       iex> Float.parse("56.5xyz")
       {56.5, "xyz"}
 
@@ -78,6 +80,10 @@ defmodule Float do
       :error -> :error
       {number, remainder} -> {-number, remainder}
     end
+  end
+
+  def parse("." <> binary) do
+    parse_unsigned("0." <> binary)
   end
 
   def parse("+" <> binary) do
